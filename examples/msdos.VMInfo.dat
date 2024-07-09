@@ -1,0 +1,120 @@
+# this is a example for a MS-DOS file in VMInfo.dat format.
+  
+# VMInfo.dat example
+# This file is an example, Modify it to fit your VM's OS, ARCH and ISSUE_TARGETING_CONTROL.
+# read the README.md about VMInfo.dat files to know what all this does in a "better" explained way.
+
+# VMINFO for MS-DOS VM on VIRTUALIZATION_SOF| HOST HOST_ARCHITECTURE
+# TAGS:INFO                                 | INFO about the used TAGS
+# ENOENT                                    | NO:USING:TAGS
+# This is where you define the OS Information of your VM
+<!-- VMINFO --!>
+# VM OS and Firmware Information.  # RETROS is referring that this OS is no longer in development.
+OS="MS-DOS ||VERSION UPDATE='NUM' >> RETROS "
+TYPE="MS-DOS UNIX-LIKE"
+ARCH="16BIT BOOT_MODE"
+
+# Package Information
+# here you can list your INSTALLED_PACKAGES for a more targeted issue-fixing
+# is recommended to add a timestamp to the INSTALLED_PACKAGES so you can know when the issue originated.
+# you can add the needed TAG to fit your Information-Needs.
+INSTALLED_DEP="N/A_ERROR_NOT_COMPATIBLE:NO_PACKAGE_MANAGER_COMPATIBLE_WITH='MS-DOS ||VERSION' NAPKG"
+
+# Virtual Disk Information.
+# SIZE is a NUMBER
+# SIZE_METRICS is one or more from:  Bytes, KB|KiloBytes, MB|MegaBytes, GB|GigaBytes, TB|TeraBytes, ETC.
+MAX_SIZE_DRIVE="SIZE SIZE_METRICS"
+
+# TYPE_OF_DEVICE refers to either VHD, VDI, QCOW2, IMG, ISO or RAW.
+# PARTITION_TABLE refers at either GPT or MBR.
+# PARTITION_TYPE refer to either LINUX, BSD, O/S 2, MS-DOS, MacOSX or WindowsNT
+#                                 EXT   BSD       FAT        APFS        NTFS
+#
+# BOOT_METHOD refers to either LEGACY/BIOS BootMode.
+DRIVE_FORMAT="TYPE_OF_DEVICE / MBR / MS-DOS_FAT32 / LEGACY|BIOS"
+
+<!-- VMINFO --!>
+
+<!-- USERLAND --!>
+| ERROR:NOT_COMPATIBLE:SYSTEM=ms-dos / MS-DOS
+| SYSTEM_USER_SUPPORT:MULTIUSER="N/A"
+|
+| DEBRIEF=
+| "
+| System User Chose is not compatible with 'MULTI_USER_LOGIN_PROMPT:UM_USER_NO_SETUP'
+| "
+<!-- USERLAND --!>
+
+<!--VMSTATE --!>
+# Beginning of the VMSTATE Section.
+
+    # Errors on the system, MANUAl_LOG.
+    <!-- STATE:SUBSECTION_ERRORS --!>
+        # Uncomment the following lines for No ERRORS.
+        # or modify it to add your errors here.
+        # add them in List and in CHRONOLOGIC_ORDER to have a better control over error handling.
+        _VM_STATE=STATE | _WARN ERR=NUM
+        | NO_LOGIN_SHELL= No LoginShell was found on IDE_DRIVEV:DEVICE:MOUNTPOINT="C:\"
+        | SEVERE_SYSTEM_ERRORS=NUM
+        | SEVERE_DRIVE_ERRORS=NUM
+        | DISK_IO_ERRORS="ADD_YOUR_IO_ERRORS_HERE"
+        | _POSSIBLE_CAUSE="put here what you think could've caused it."
+        _ERR_ON_INSTALL:ERR_COUNT=NUM  | io_device_content_not_copied=ERROR_ID
+                                       | DOS_ERROR_NO_BOOTABLE_DEVICE=NUM
+                                       | _REPEATED_ERROR_?=IS_REPEATED_?
+                NOERR"
+    <!-- STATE:SUBSECTION_ERRORS --!>
+
+    # The VM won't load these configurations.
+    <!-- DOS_IS_CONF --!>
+    # DOS has NO DE, but you can install WINDOWS 1.0 or WINDOWS 3.0 for getting the NT DE.
+       _ENVIRONMENT_LOADED="_MS_DOS_SHELL"
+    <!-- DOS_IS_CONF --!>
+
+    # Clock Syncronization Value.
+    <!-- DTATIME_CTL --!>
+        DATE_TIME_IS_SYNC="TRUE" # time should always be syncronized.
+    <!-- DATETIME_CTL --!>
+
+    # INET Device(s) and State.
+    <!-- INET_LINK --!>
+      # For this, you will have to get your own drivers.
+        INET_LINK_IS_UP="FALSE"
+        INET_LINK_IS_WORKING="FALSE"
+        INET_LINK_TYPE="NOT_COMPATIBLE"
+    <!-- INET_LINK --!>
+
+    # Kernel Panic INFO and COUNT.
+    # Add timestamps to have better ISSUE_TARGETING_CONTROL.
+    <!!-- STATE:KERNEL_IS_PANIC --!!>
+      # MS-DOS:KERNEL_PANIC:IS=NULL
+    <!!-- STATE:KERNEL_IS_PANIC --!!>
+
+# End of the VMSTATE Section
+<!-- VMSTATE --!>
+
+<!-- DATELOG --!>
+# Time where LOGS have been modified.
+
+    _DATE="YY/MM/DD"
+    _END_OF_LOG_PAGE
+<!-- DATELOG --!>
+
+
+| # FINALSTATE:VMSTATE:STATE STATES: "VM_STATE:OK|PANIC|MINOR_ERRORS|SEVERE_SYSTEM_ERRORS"
+| FINALSTATE:VMSTATE:STATE="VM_STATE:OK
+| VM:CAN:BOOT:STATE="TRUE"
+|
+| # STATES for KERNEL:STATE:INTEGRITY=OK|COMPROMISED|SLIGHTLY_CORRUPTED|HIGLY_CORRUPTED|SYSTEM_IN_DANGER
+| KERNEL:STATE:INTEGRITY=N/A
+| _DOS_STATE=OK
+| BOOT:COUNT=NUM
+| BOOT:SUCCESSFUL:COUNT=NUM
+| BOOT:FAILED:COUNT=NUM
+|
+| # States for MS-DOS:IS:INSTAlLED|IN_INSTALLATION_PROCESS|FAILED_INSTALLATION="REASON"|DANGEROUS_STATE|CORRUPTED
+| INSTALLER:STATE= STATE / MS-DOS:IS:STATE
+
+# File from MS-DOS State and Error Targets.
+# This file is just a preset to save you some time, try to fill this with the information according to your system.
+# see README.md for a quickstart on the VMInfo.dat syntax.
