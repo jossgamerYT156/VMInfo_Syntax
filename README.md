@@ -66,7 +66,7 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
     ```
 
 - Define VM_ARCHITECTURE.
- | This is very important, since if an architecture is not available, you might find issues when using a *DISK_RECOVERY* utility to flash the VM's VHD/QCOW2/IMG to a real *STORAGE_DEVICE* for use on REAL_HARDWARE
+  > This is very important, since if an architecture is not available, you might find issues when using a *DISK_RECOVERY* utility to flash the VM's VHD/QCOW2/IMG to a real *STORAGE_DEVICE* for use on REAL_HARDWARE
 
  - `ARCH="X86_64, ARM, PPC, ETC."`
 
@@ -92,9 +92,9 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
     ```
 
 - Define MAX_SIZE_DRIVE parameters
-| Sometimes you can get to forget what is the maximum size of your virtual drive.
-| So set this parameter if you think you might need it.
-| This parameter just tells you what size is your virtual drive, you can put any number and SIZE_NUMERATOR, things like B/Bytes, KB/KiB, MB/MiB, GB/GiB, TB/TiB, ETC.
+> Sometimes you can get to forget what is the maximum size of your virtual drive.
+> So set this parameter if you think you might need it.
+> This parameter just tells you what size is your virtual drive, you can put any number and SIZE_NUMERATOR, things like B/Bytes, KB/KiB, MB/MiB, GB/GiB, TB/TiB, ETC.
    - `MAX_SIZE_DRIVE="SIZE SIZE_NUMERATOR"`
 
        Example:
@@ -111,13 +111,13 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
        DRIVE_FORMAT="VHD_DEVICE / MBR  / BSD Partition Map / LEGACY_BOOT"
        ```
 
- | You can (Optionally) set the `HOST_MACHINE` and paste your system parameters/specs, so that way other people can help you solve possible issues.
- | this can contain as many HOST data as you prefer and can be formatted as you prefer.
+ > You can (Optionally) set the `HOST_MACHINE` and paste your system parameters/specs, so that way other people can help you solve possible issues.
+ > this can contain as many HOST data as you prefer and can be formatted as you prefer.
 
 ## Set `<!-- USERLAND --!>` Section.
 
-| USERLAND contains USER_DATA, things like LOGIN_USERS and PASSWRD's, so BE CAREFUL with if you WANT to store these data on the VMInfo.dat file or any other hidden file.
-| what matters is that YOU remember where it is.
+> USERLAND contains USER_DATA, things like LOGIN_USERS and PASSWRD's, so BE CAREFUL with if you WANT to store these data on the VMInfo.dat file or any other hidden file.
+> what matters is that YOU remember where it is.
 
    - USERLAND Holds the data:
         - NON_ROOT_USR : User that is NOT the ROOT account. (e.g., foo, user, john. Please use quotations.)
@@ -127,17 +127,17 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
         - _SSHD : Holds if the package SSHD/OPENSSH starts when the VM Boots or not, TRUE if the SSH service starts on Boot, FALSE if not.
         - _ROOT_SSHD : holds if _SSHD accepts logging in as the ROOT account, usually disabled by default in most systems.
 
-| That's everything for USERLAND!
-| YOU can add as many more USER_DATA as you please, just remember to have some order.
+> That's everything for USERLAND!
+> YOU can add as many more USER_DATA as you please, just remember to have some order.
 
 ## Set Section `<!--VMSTATE --!>`
 
 - Set SubSection `<!-- STATE:SUBSECTION_ERRORS --!>`
-| This subsection should be at the beginning of VMSTATE, that way you can write any errors at the very beginning of your machine's state, so then you can solve them later.
+> This subsection should be at the beginning of VMSTATE, that way you can write any errors at the very beginning of your machine's state, so then you can solve them later.
 
-    - Syntax:
+  - Syntax:
 
-    | The syntax of this subsection is simple VMSTATE as a *GENERALIZED* marker, error mark, error info, date and time.
+    > The syntax of this subsection is simple VMSTATE as a *GENERALIZED* marker, error mark, error info, date and time.
 
     Example:
 
@@ -152,7 +152,7 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 
     ```
 
-| Then we set our error markers.
+> Then we set our error markers.
 
   For NO errors:
         ```
@@ -190,11 +190,11 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 
                 If _ERR_KERNEL is MISSING:
 
-| leave yourself a comment, maybe try looking for a new kernel to boot off, this is just a NOTE tag to remind you that your kernel is not there anymore.
+> leave yourself a comment, maybe try looking for a new kernel to boot off, this is just a NOTE tag to remind you that your kernel is not there anymore.
 
 
 ## Set SubSection `<!-- XORG_IS_CONFIG --!>`
-| For this subsection, you might want to set the configurations and states of *XORG* or any *DE*/*WM*/*GUI* you installed on your **VM** system/Your **VM** system has already installed as a *DEFAULT_CONF*/*DEFAULT_BINARY*
+> For this subsection, you might want to set the configurations and states of *XORG* or any *DE*/*WM*/*GUI* you installed on your **VM** system/Your **VM** system has already installed as a *DEFAULT_CONF*/*DEFAULT_BINARY*
 
 - SubSection Example:
 
@@ -205,18 +205,18 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
         XORG_DISPLAY_0_IS_WORKIN="TRUE"
     ```
 
-| feel free to add, delete, modify or comment this as much as you prefer.
+> feel free to add, delete, modify or comment this as much as you prefer.
 
 ## Set SubSection `<!-- DATETIME_CTL --!>`
 
-| NOTE: DTATIME_CTL can depend from the INET_LINK status on some systems, make sure to double check this info.
-| This SubSection only contains **1** parameter, that one being `DATE_TIME_IS_SYNC="VALUE"`
-| This value can be either `TRUE` or `FALSE`, depending on if the machine's Time is correctly Synced with the HOST's time.
-|| SUBNOTE: Some Systems fix this by changing your [TIMEZONE](https://en.wikipedia.org/wiki/Time_zone) to your correct TimeZone.
+> NOTE: DTATIME_CTL can depend from the INET_LINK status on some systems, make sure to double check this info.
+> This SubSection only contains **1** parameter, that one being `DATE_TIME_IS_SYNC="VALUE"`
+> This value can be either `TRUE` or `FALSE`, depending on if the machine's Time is correctly Synced with the HOST's time.
+>> SUBNOTE: Some Systems fix this by changing your [TIMEZONE](https://en.wikipedia.org/wiki/Time_zone) to your correct TimeZone.
 
 ## Set SubSection `<!-- INET_LINK --!>`
 
-| The SubSection INET_LINK doesn't depend of ANY software, this is just a GENERALIZED tag for saying "You have internet access." or "You DON'T have internet access."
+> The SubSection INET_LINK doesn't depend of ANY software, this is just a GENERALIZED tag for saying "You have internet access." or "You DON'T have internet access."
 - This SubSection has to contain the values for:
 
 ```
@@ -231,14 +231,14 @@ INET_LINK_TYPE="NETWORK_DEVICE / _BRIDGE_DEVICE|_NO_BRIDGE_DEVICE"
 
 - Line `INET_LINK_TYPE="NETWORK_DEVICE / _BRIDGE_DEVICE / _NO_BRIDGE_DEVICE"`, Holds of the name of the INET_DEVICE and if it is a BRIDGE_DEVICE or NOT.
 
-| It just tells you if other VM's can see this one or not.
+> It just tells you if other VM's can see this one or not.
 
 
 ## Set SubSection `<!!-- STATE:KERNEL_IS_PANIC --!!>`
 
-| This SubSection is composed by 2 arguments, the `STATE` argument, which tells you what is this SubSection's STATE is telling you about.
-| and the second argument being the zone we are looking the STATE at, example, KERNEL_IS_PANIC which should tell you if the KERNEL had PANICS before.
-| an example of the SYNTAX for this SubSection is:
+> This SubSection is composed by 2 arguments, the `STATE` argument, which tells you what is this SubSection's STATE is telling you about.
+> and the second argument being the zone we are looking the STATE at, example, KERNEL_IS_PANIC which should tell you if the KERNEL had PANICS before.
+> an example of the SYNTAX for this SubSection is:
 
 ```
 <!!-- STATE:KERNEL_IS_PANIC --!!>
@@ -255,12 +255,12 @@ If not, procceed as you prefer.
 
 - Line `KERNEL.LOAD.KERNEL_IS_PANIC="VALUE"` Tells you if it has a KERNEL_PANIC when loading itself, or if it procceeds through the kernel normally.
 
-|:notebook: NOTE: this SubSection might be for ADVANCED_USERS only, since filling this without knowledge might result in misleaded solutions, possibly causing more issues.
+>:notebook: NOTE: this SubSection might be for ADVANCED_USERS only, since filling this without knowledge might result in misleaded solutions, possibly causing more issues.
 
 **After these SubSections, the `<!-- VMSTATE --!>` Section ends.**
 
-|:pencil: Try to add a line to the `<!-- DATELOG --!>` Section every time you EDIT it, so that you can keep track of when issues started, from which boot attempt and what packages did it(For Knowing which packages caused issues, you might want to add the "DATEADDED" bit aside of every package, for more strict following of Issues.)
-| A example of this Section is:
+>:pencil: Try to add a line to the `<!-- DATELOG --!>` Section every time you EDIT it, so that you can keep track of when issues started, from which boot attempt and what packages did it(For Knowing which packages caused issues, you might want to add the "DATEADDED" bit aside of every package, for more strict following of Issues.)
+> A example of this Section is:
 ```
 <!-- DATELOG --!>
     _DATE="YY/MM/DD"
@@ -271,9 +271,9 @@ If not, procceed as you prefer.
 
 ## Set FINNALSTATE Page.
 
-| The FINALSTATE page tells you things like "How Many Times Booted", "How Many Successful Boot Attempts"
-
-| An Example of the FINALSTATE page is:
+> The FINALSTATE page tells you things like "How Many Times Booted", "How Many Successful Boot Attempts"
+> 
+> An Example of the FINALSTATE page is:
 
 ```
 | FINALSTATE:VMSTATE:STATE="VM_STATE:OK|PANIC|MINOR_ERRORS|SEVERE_SYSTEM_ERRORS
@@ -287,8 +287,8 @@ ______________________________________________________________________________
 
 ## SIDENOTE [IMPORTANT] :warning:
 
-| This **SYNTAX** was created for a **HUMAN** to write, this way we can avoid possible issues when **AUTO_WRITE** a **VMInfo.dat** file(Possible Security ISSUES).
-| Please use this **SYNTAX** with responsability, since if used wrong it could leak important VM Info to the public, make sure to keep your **VMInfo.dat** files on a **SAFE** place and do constant **BACKUPS.**
+> This **SYNTAX** was created for a **HUMAN** to write, this way we can avoid possible issues when **AUTO_WRITE** a **VMInfo.dat** file(Possible Security ISSUES).
+> Please use this **SYNTAX** with responsability, since if used wrong it could leak important VM Info to the public, make sure to keep your **VMInfo.dat** files on a **SAFE** place and do constant **BACKUPS.**
 
 
 **ATTE: LillyDev (Local Time Consumer.)**
