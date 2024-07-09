@@ -49,7 +49,8 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 ## Set Section `<!-- VMINFO --!>`
 - Set a OS Name for your VM.
     - `OS_NAME="Your VM's OS Name Here Followed By It's Version."`
-       Example:
+
+      Example:
 
    ```
    OS="FreeBSD V14.1 Release"
@@ -57,6 +58,7 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 
 - Define a OS_TYPE for your VM
   - `TYPE="OS_NAME_HERE OS_FAMILY e.g, BSD UNIX / LINUX UNIX / WINDOWS NT / ETC FAMILY_ETC"`
+
     Example:
 
     ```
@@ -67,8 +69,8 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
  | This is very important, since if an architecture is not available, you might find issues when using a *DISK_RECOVERY* utility to flash the VM's VHD/QCOW2/IMG to a real *STORAGE_DEVICE* for use on REAL_HARDWARE
 
  - `ARCH="X86_64, ARM, PPC, ETC."`
-    Example:
 
+   Example:
  ```
  ARCH="X86_64"
  ```
@@ -76,8 +78,8 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
  - Define INSTALLED_DEPENDENCIES/PACKAGES.
  | Note: You can skip this if you want, since this is just for you to keep track of what you install on your VM's System, that way you can target specific Binaries that could've caused *INSTABILITY* or *INIT_ISSUES/ERRORS*
     - `INSTALLED_DEP="LIST"`
+    
     Example:
-
     ```
     INSTALLED_DEP="LIST_OF_YOUR_INSTALLED_PACKAGES \
     USE_BACKSLASH_FOR_NEW_LINES                    \    YOU_CAN_ADD_DATES_HERE
@@ -96,7 +98,6 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
    - `MAX_SIZE_DRIVE="SIZE SIZE_NUMERATOR"`
 
        Example:
-
        ```
        MAX_SIZE_DRIVE="64GiB"
        ```
@@ -106,7 +107,6 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
        SYNTAX is: `DRIVE_FORMAT="TYPE_OF_DEVICE / PARTITION_TABLE / PARTITION_TYPE / BOOT_METHOD"`
 
        Example:
-
        ```
        DRIVE_FORMAT="VHD_DEVICE / MBR  / BSD Partition Map / LEGACY_BOOT"
        ```
@@ -142,13 +142,11 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
     Example:
 
     - GENERALIZED_MARKER
-
     ```
     _VM_STATE="OK_NO_ERR"
     ```
 
     or
-
     ```
     _VM_STATE=NUMBER_OF_ERRORS LISTED_ON_SECTION
 
@@ -157,44 +155,38 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 | Then we set our error markers.
 
   For NO errors:
-
         ```
         _ERR_ON_INSTALL="N/A     \
                     NOERR"
         ```
 
    For Errors on files:
-
         ```
         _ERR:@:FILE="/PATH/TO/FILE.SOMETHING" YY:DD:MM @ HH:MM:SS
         ```
 
    For INIT errors:
-
         ```
         _INIT:ERR="INFO_SYSTEM_GAVE" >> "POSSIBLE_CAUSE" !>> "POSSIBLE_FIX/MORE_INFO"
         ```
 
    For KERNEL_ERRORS
-
             ```
             _ERR_KERNEL:PANIC/CORRUPTION/MISSING
             ```
 
   If _ERR_KERNEL is a PANIC value, add the following line with the data:
-
-                    ```
-                    _PANIC_CODE="CODE", _PANIC_REASON="SYSTEM_GIVEN_REASON", _OTHER_INFO="Any other info you might have about the issue, if you have the time."
-                    ```
+    ```
+    _PANIC_CODE="CODE", _PANIC_REASON="SYSTEM_GIVEN_REASON", _OTHER_INFO="Any other info you might have about the issue, if you have the time."
+    ```
 
   if _ERR_KERNEL is a CORRUPTION value, this might just serve to target the source of such KERNEL_PANIC:
-
-                    ```
-                    _PANIC_REASON="SOME_SOFTWARE_YOU_SUSPECT_MIGHT_CAUSE_THE_KERNEL_PANIC"
-                    _PANIC_INFO="Any other information you might want to keep for later issue avoidance."
-                    _PANIC_PREVENT_MEASSURES="What you plan to do to avoid such KERNEL_PANIC"
-                    # Any comments you might want to leave for your future you, example: "This is a false KERNEL_PANIC, reboot and it will boot normally."
-                    ```
+    ```
+    _PANIC_REASON="SOME_SOFTWARE_YOU_SUSPECT_MIGHT_CAUSE_THE_KERNEL_PANIC"
+    _PANIC_INFO="Any other information you might want to keep for later issue avoidance."
+    _PANIC_PREVENT_MEASSURES="What you plan to do to avoid such KERNEL_PANIC"
+    # Any comments you might want to leave for your future you, example: "This is a false KERNEL_PANIC, reboot and it will boot normally."
+    ```
 
                 If _ERR_KERNEL is MISSING:
 
@@ -228,9 +220,9 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 - This SubSection has to contain the values for:
 
 ```
-        INET_LINK_IS_UP="VALUE"
-        INET_LINK_IS_WORKING="VALUE"
-        INET_LINK_TYPE="NETWORK_DEVICE / _BRIDGE_DEVICE|_NO_BRIDGE_DEVICE"
+INET_LINK_IS_UP="VALUE"
+INET_LINK_IS_WORKING="VALUE"
+INET_LINK_TYPE="NETWORK_DEVICE / _BRIDGE_DEVICE|_NO_BRIDGE_DEVICE"
 ```
 
 - Line `INET_LINK_IS_UP="VALUE"` holds only the values `TRUE` or `FALSE`, if the INET_LINK is UP, means that YOUR HOST_MACHINE does provide a INET device for your **VM**, else if it is NOT UP, means that your HOST_MACHINE does NOT provide a INET device for your **VM**.
@@ -249,11 +241,11 @@ The **VMInfo.dat** file is designed to keep track of the VM's configuration and 
 | an example of the SYNTAX for this SubSection is:
 
 ```
-    <!!-- STATE:KERNEL_IS_PANIC --!!>
-        KERNEL_IS_PANIC_STATE="VALUE"
-        KERNELCONF.KERNEL_IS_PANIC="Summary"
-        KERNEL.LOAD.KERNEL_IS_PANIC="VALUE"
-    <!!-- STATE:KERNEL_IS_PANIC --!!>
+<!!-- STATE:KERNEL_IS_PANIC --!!>
+    KERNEL_IS_PANIC_STATE="VALUE"
+    KERNELCONF.KERNEL_IS_PANIC="Summary"
+    KERNEL.LOAD.KERNEL_IS_PANIC="VALUE"
+<!!-- STATE:KERNEL_IS_PANIC --!!>
 ```
 
 - Line `KERNEL_IS_PANIC_STATE="VALUE"` holds either `TRUE` or `FALSE`, this tells you if the KERNEL had a PANIC_HALT before, if it is true, you might wanna be careful.
@@ -271,8 +263,8 @@ If not, procceed as you prefer.
 | A example of this Section is:
 ```
 <!-- DATELOG --!>
-_DATE="YY/MM/DD"
-_END_OF_LOG_PAGE
+    _DATE="YY/MM/DD"
+    _END_OF_LOG_PAGE
 <!-- DATELOG --!>
 ```
 
