@@ -1,0 +1,134 @@
+
+# VMInfo.dat example With VM_ONLY Info.
+# This file is an example, Modify it to fit your VM's OS, ARCH and ISSUE_TARGETING_CONTROL.
+# read the README.md about VMInfo.dat files to know what all this does in a "better" explained way.
+
+# VMINFO for OS_NAME VM on VM_SOFTWARE      | ARCH_LINUX X86_64
+# TAGS:INFO                                 | INFO about the used TAGS
+# REQUIRED == User REQUIRES this package    | INSTALLED:BY:USER
+# to use OS_NAME                            |
+# THREE    == User INSTALLED the THREE      | DEPENDENCIES_THREE|SOURCE
+# WWW      == User INSTALLED a WEB_BROWSER  | WEB_BROWSER_TAG
+
+# This is where you define the OS Information of your VM
+<!-- VMINFO --!>
+# VM OS and Firmware Information.
+OS="OS_NAME VERSION_NUMBER Release|Beta|Nightly|Alpha"
+TYPE="OS OS_FAMILY"
+ARCH="X86_64|ARCH|PPC, ETC."
+
+# Package Information
+# here you can list your INSTALLED_PACKAGES for a more targeted issue-fixing
+# is recommended to add a timestamp to the INSTALLED_PACKAGES so you can know when the issue originated.
+# you can add the needed TAG to fit your Information-Needs.
+INSTALLED_DEP="
+DEPENDENCY      TAG         \       DATE
+|___FROM:PACKAGE_MANAGER    \   REPO
+
+DEPENDENCY      TAG         \       DATE
+|___FROM:PACKAGE_MANAGER    \   REPO
+
+# Virtual Disk Information.
+# SIZE is a NUMBER
+# SIZE_METRICS is one or more from:  Bytes, KB|KiloBytes, MB|MegaBytes, GB|GigaBytes, TB|TeraBytes, ETC.
+MAX_SIZE_DRIVE="SIZE SIZE_METRICS"
+
+# TYPE_OF_DEVICE refers to either VHD, VDI, QCOW2, IMG, ISO or RAW.
+# PARTITION_TABLE refers at either GPT or MBR.
+# PARTITION_TYPE refer to either LINUX, BSD, O/S 2, MacOSX or WindowsNT
+#                                 EXT   BSD   FAT   APFS        NTFS
+#
+# BOOT_METHOD refers to either UEFI or LEGACY/BIOS BootMode.
+DRIVE_FORMAT="TYPE_OF_DEVICE / PARTITION_TABLE / PARTITION_TYPE / BOOT_METHOD"
+
+<!-- VMINFO --!>
+
+# USERLAND
+# Information About The User.<!-- USERLAND --!>
+# USER      : Add a USERNAME.
+# PASSWD    : Type a PASSWORD from your USERS.
+# VALUE     : "TRUE" or "FALSE".
+NON_ROOT_USR="USER"
+NON_ROOT_PASSWD="PASSWD"
+
+# IS NOT recommended to set the _ROOT_PASSWD or Information about the ROOT_USER on the VMInfo.dat file, since it is a possible security threat.
+# If you put this info here, deal with your actions by yourself.
+_ROOT_PASSWD="PASSWD"
+
+# Is SSHD enabled on SYSTEMCTL or SYSINIT?
+# If "NO" set it to "FAlSE", If "YES" set it to "TRUE"
+_SSHD="VALUE"
+
+# Is the ROOT User enabled on SSH_SSIONS?
+# Id "NO" set it to "FAlSE", If "YES" set it to "TRUE"
+_ROOT_SSHD="VALUE"
+<!-- USERLAND --!>
+
+<!--VMSTATE --!>
+# Beginning of the VMSTATE Section.
+
+    # Errors on the system, MANUAl_LOG.
+    <!-- STATE:SUBSECTION_ERRORS --!>
+        # Uncomment the following lines for No ERRORS.
+        # or modify it to add your errors here.
+        # add them in List and in CHRONOLOGIC_ORDER to have a better control over error handling.
+        #_VM_STATE="OK_NO_ERR"
+        #_ERR_ON_INSTALL="N/A     \
+        #        NOERR"
+    <!-- STATE:SUBSECTION_ERRORS --!>
+
+    # XORG Configurations.
+    # The VM won't load these configurations.
+    <!-- XORG_IS_CONFIG --!>
+    # You can replace XORG for the Display Server you use.
+        XORG_IS_SETUP="VALUE / _LOADED_DRIVER"
+        XORG_DISPLAY_IS_WORKING="valuE"
+        XORG_CARD0_IS_DETECTED="VALUE"
+        XORG_DISPLAY_0_IS_WORKIN="VALUE"
+        _DESKTOP_ENVIRONMENT_LOADED="_DESKTOP_ENVIRONMENT_NAME"
+    <!-- XORG_IS_CONFIG --!>
+
+    # Clock Syncronization Value.
+    <!-- DTATIME_CTL --!>
+        DATE_TIME_IS_SYNC="VAlUE"
+    <!-- DATETIME_CTL --!>
+
+    # INET Device(s) and State.
+    <!-- INET_LINK --!>
+        INET_LINK_IS_UP="VALUE"
+        INET_LINK_IS_WORKING="VALUE"
+        INET_LINK_TYPE="INET_DEVICE / IS_BRIDGE_?"
+    <!-- INET_LINK --!>
+
+    # Kernel Panic INFO and COUNT.
+    # Add timestamps to have better ISSUE_TARGETING_CONTROL.
+    <!!-- STATE:KERNEL_IS_PANIC --!!>
+        KERNEL_IS_PANIC_STATE="VALUE"
+        KERNELCONF.KERNEL_IS_PANIC="VALUE"
+        KERNEL.LOAD.KERNEL_IS_PANIC="VALUE"
+    <!!-- STATE:KERNEL_IS_PANIC --!!>
+
+# End of the VMSTATE Section
+<!-- VMSTATE --!>
+
+<!-- DATELOG --!>
+# Time where LOGS have been modified.
+
+    _DATE="YY/MM/DD"
+    _END_OF_LOG_PAGE
+<!-- DATELOG --!>
+
+
+| # FINALSTATE:VMSTATE:STATE STATES: "VM_STATE:OK|PANIC|MINOR_ERRORS|SEVERE_SYSTEM_ERRORS"
+| FINALSTATE:VMSTATE:STATE="VM_STATE:OK
+| VM:CAN:BOOT:STATE="TRUE"
+|
+| # STATES for KERNEL:STATE:INTEGRITY=OK|COMPROMISED|SLIGHTLY_CORRUPTED|HIGLY_CORRUPTED|SYSTEM_IN_DANGER
+| KERNEL:STATE:INTEGRITY=OK
+| BOOT:COUNT=NUMBER
+| BOOT:SUCCESSFUL:COUNT=NUMBER
+|
+| # States for OS_NAME:IS:INSTAlLED|IN_INSTALLATION_PROCESS|FAILED_INSTALLATION="REASON"|DANGEROUS_STATE|CORRUPTED
+| INSTALLER:STATE= STATE / OS_NAME:IS:STATE
+
+## File from OS_NAME State and Error Target, Packages listed are listed on DATE_ADDED order OLDER>>NEWER without listing DEFAULT or PREINST
